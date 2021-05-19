@@ -23,27 +23,16 @@ enum Sort {
 
 function App() {
   const [mons, setMons] = useState(
-    pokemonList.map((name, i) => ({
-      id: i + 1,
-      name: name.toLowerCase(),
-      boat: false,
-      hit: HitState.None,
-      miss: false,
-    }))
+    pokemonList
+      .sort((a, b) => a.localeCompare(b))
+      .map((name, i) => ({
+        id: i + 1,
+        name: name.toLowerCase(),
+        boat: false,
+        hit: HitState.None,
+        miss: false,
+      }))
   );
-  const [sort, setSort] = useState(Sort.Numeric);
-  const toggleSort = () => {
-    switch (sort) {
-      case Sort.Alpha:
-        setSort(Sort.Numeric);
-        setMons(mons.sort((a, b) => a.id - b.id));
-        break;
-      case Sort.Numeric:
-        setSort(Sort.Alpha);
-        setMons(mons.sort((a, b) => a.name.localeCompare(b.name)));
-        break;
-    }
-  };
 
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -117,7 +106,6 @@ function App() {
           onChange={(ev) => setSearchTerm(ev.target.value)}
         />
       </label>
-      <button onClick={() => toggleSort()}>Sort: {Sort[sort]}</button>
       <div className="board">
         {mons.map((mon) => (
           <div

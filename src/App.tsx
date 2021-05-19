@@ -91,6 +91,7 @@ function App() {
 
   return (
     <>
+      <h1>Pokemon Yeet Yachts Tracker</h1>
       <label>
         <input
           checked={boatEdit}
